@@ -16,7 +16,7 @@ import GooglePlaces
 class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
     @IBOutlet weak var distancelbl: UILabel!
-    
+      var source1 = CLLocation()
     @IBOutlet weak var addlbl: UILabel!
     var placesClient: GMSPlacesClient!
     var locationManager = CLLocationManager()
@@ -83,18 +83,18 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
         // viewmap.isHidden = true
         let source = CLLocationCoordinate2DMake((locationManager.location?.coordinate.latitude)!,(locationManager.location?.coordinate.longitude)!)
         let dest = CLLocationCoordinate2DMake(33.7017, 73.0228)
-        let source1 = locationManager.location
+        source1 = locationManager.location!
         let dest1 = CLLocation(latitude: 33.7079, longitude: 73.0500)
         //getPolylineeRoute(from: source, to: dest)
-        getplacesnearby(source: source1!,dest: dest1,distance: 1000,type: "restaurant")
-        drawPath(startLocation: source1!, endLocation: dest1)
+        getplacesnearby(source: source1,dest: dest1,distance: 1000,type: "restaurant")
+        drawPath(startLocation: source1, endLocation: dest1)
         addanotation(dest: dest1)
         
         
         
         
         // 1
-        let center = CLLocationCoordinate2DMake((source1?.coordinate.latitude)!, (source1?.coordinate.longitude)!)
+        let center = CLLocationCoordinate2DMake((source1.coordinate.latitude), (source1.coordinate.longitude))
         let northEast = CLLocationCoordinate2DMake(center.latitude + 0.001, center.longitude + 0.001)
         let southWest = CLLocationCoordinate2DMake(center.latitude - 0.001, center.longitude - 0.001)
         let viewport = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
@@ -281,6 +281,44 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
     }
 
     
+    @IBAction func pickplacebutton(_ sender: Any) {
+        
+        let center = CLLocationCoordinate2DMake((source1.coordinate.latitude), (source1.coordinate.longitude))
+        let northEast = CLLocationCoordinate2DMake(center.latitude + 0.001, center.longitude + 0.001)
+        let southWest = CLLocationCoordinate2DMake(center.latitude - 0.001, center.longitude - 0.001)
+        let viewport = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
+        let config = GMSPlacePickerConfig(viewport: viewport)
+        
+        self.placePicker = GMSPlacePicker(config: config)
+        print(placePicker.description)
+        // 2
+        placePicker.pickPlace { (place: GMSPlace?, error: Error?) -> Void in
+            
+            if let error = error {
+                print("Error occurred: \(error.localizedDescription)")
+                return
+            }
+            // 3
+            if let place = place {
+                self.mapView.clear()
+                print(place)
+                let coordinates = CLLocationCoordinate2DMake(place.coordinate.latitude, place.coordinate.longitude)
+                let marker = GMSMarker(position: coordinates)
+                marker.title = place.name
+                marker.map = self.mapView
+                let destt = CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+                
+                self.drawPath(startLocation: self.source1, endLocation: destt)
+                let distancee =
+                    
+                    
+                    self.mapView.animate(toLocation: coordinates)
+            } else {
+                print("No place was selected")
+            }
+        }
+
+    }
     
     
     func getPolylineRoute(from source: CLLocationCoordinate2D, to destination: CLLocationCoordinate2D){
