@@ -12,11 +12,20 @@
 		8492B1811F9498AB007B6F13 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8492B1801F9498AA007B6F13 /* CoreLocation.framework */; };
 		84FE4B6B1F95DE3800F5E827 /* MusicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FE4B6A1F95DE3800F5E827 /* MusicController.swift */; };
 		84FE4B791F960BE100F5E827 /* MusicViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FE4B781F960BE100F5E827 /* MusicViewCell.swift */; };
+		B031FD861F99C133003880A0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B031FD851F99C132003880A0 /* GoogleService-Info.plist */; };
 		B0B313791F947FB800226776 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B313781F947FB800226776 /* AppDelegate.swift */; };
 		B0B3137B1F947FB800226776 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B3137A1F947FB800226776 /* ViewController.swift */; };
 		B0B3137E1F947FB800226776 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0B3137C1F947FB800226776 /* Main.storyboard */; };
 		B0B313801F947FB800226776 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0B3137F1F947FB800226776 /* Assets.xcassets */; };
 		B0B313831F947FB800226776 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0B313811F947FB800226776 /* LaunchScreen.storyboard */; };
+		B0ED0A821FA7369500176B3E /* Music4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B031FD831F99B1E6003880A0 /* Music4.mp3 */; };
+		B0ED0A831FA7369500176B3E /* Sound1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B031FD811F99B1E6003880A0 /* Sound1.mp3 */; };
+		B0ED0A841FA7369500176B3E /* Sound2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B031FD7F1F99B1E5003880A0 /* Sound2.mp3 */; };
+		B0ED0A851FA7369500176B3E /* Music1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B031FD821F99B1E6003880A0 /* Music1.mp3 */; };
+		B0ED0A861FA7369500176B3E /* Music2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B031FD7C1F99B1E5003880A0 /* Music2.mp3 */; };
+		B0ED0A871FA7369500176B3E /* Music3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B031FD7D1F99B1E5003880A0 /* Music3.mp3 */; };
+		B0ED0A881FA7369500176B3E /* Sound3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B031FD7E1F99B1E5003880A0 /* Sound3.mp3 */; };
+		B0ED0A891FA7369500176B3E /* Sound4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B031FD801F99B1E6003880A0 /* Sound4.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +44,7 @@
 		B031FD821F99B1E6003880A0 /* Music1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Music1.mp3; sourceTree = SOURCE_ROOT; };
 		B031FD831F99B1E6003880A0 /* Music4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Music4.mp3; sourceTree = SOURCE_ROOT; };
 		B031FD841F99B90D003880A0 /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
+		B031FD851F99C132003880A0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B0B313751F947FB800226776 /* Map Tracing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Map Tracing.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0B313781F947FB800226776 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B0B3137A1F947FB800226776 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -108,8 +118,13 @@
 			children = (
 				840AE0801F99955100920A49 /* Resources */,
 				B0B313781F947FB800226776 /* AppDelegate.swift */,
+				B031FD851F99C132003880A0 /* GoogleService-Info.plist */,
 				B0B3137A1F947FB800226776 /* ViewController.swift */,
 				B0B3137C1F947FB800226776 /* Main.storyboard */,
+				84FE4B6A1F95DE3800F5E827 /* MusicController.swift */,
+				84FE4B781F960BE100F5E827 /* MusicViewCell.swift */,
+				B031FD841F99B90D003880A0 /* settings.png */,
+				B0B3137F1F947FB800226776 /* Assets.xcassets */,
 				B031FD831F99B1E6003880A0 /* Music4.mp3 */,
 				B031FD811F99B1E6003880A0 /* Sound1.mp3 */,
 				B031FD7F1F99B1E5003880A0 /* Sound2.mp3 */,
@@ -118,10 +133,6 @@
 				B031FD7D1F99B1E5003880A0 /* Music3.mp3 */,
 				B031FD7E1F99B1E5003880A0 /* Sound3.mp3 */,
 				B031FD801F99B1E6003880A0 /* Sound4.mp3 */,
-				84FE4B6A1F95DE3800F5E827 /* MusicController.swift */,
-				84FE4B781F960BE100F5E827 /* MusicViewCell.swift */,
-				B031FD841F99B90D003880A0 /* settings.png */,
-				B0B3137F1F947FB800226776 /* Assets.xcassets */,
 				B0B313811F947FB800226776 /* LaunchScreen.storyboard */,
 				B0B313841F947FB800226776 /* Info.plist */,
 			);
@@ -190,8 +201,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0ED0A821FA7369500176B3E /* Music4.mp3 in Resources */,
+				B0ED0A831FA7369500176B3E /* Sound1.mp3 in Resources */,
+				B0ED0A841FA7369500176B3E /* Sound2.mp3 in Resources */,
+				B0ED0A851FA7369500176B3E /* Music1.mp3 in Resources */,
+				B0ED0A861FA7369500176B3E /* Music2.mp3 in Resources */,
+				B0ED0A871FA7369500176B3E /* Music3.mp3 in Resources */,
+				B0ED0A881FA7369500176B3E /* Sound3.mp3 in Resources */,
+				B0ED0A891FA7369500176B3E /* Sound4.mp3 in Resources */,
 				840AE0811F99956000920A49 /* GoogleMaps.bundle in Resources */,
 				B0B313831F947FB800226776 /* LaunchScreen.storyboard in Resources */,
+				B031FD861F99C133003880A0 /* GoogleService-Info.plist in Resources */,
 				B0B313801F947FB800226776 /* Assets.xcassets in Resources */,
 				B0B3137E1F947FB800226776 /* Main.storyboard in Resources */,
 			);
@@ -208,12 +228,18 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Map Tracing/Pods-Map Tracing-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -408,7 +434,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 2GNRYR6Q65;
 				INFOPLIST_FILE = "Map Tracing/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -425,7 +451,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 2GNRYR6Q65;
 				INFOPLIST_FILE = "Map Tracing/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -9,4 +9,6 @@ target 'Map Tracing' do
   pod 'GooglePlacePicker'
   pod 'Alamofire'
   pod 'SwiftyJSON'
+  pod 'Firebase/Core'
+  pod 'FirebaseDatabase'
 end

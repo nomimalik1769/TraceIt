@@ -27,7 +27,7 @@ class MusicController: UIViewController,UITableViewDelegate,UITableViewDataSourc
         return cataogories.count
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return songs.count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

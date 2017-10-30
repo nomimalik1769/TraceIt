@@ -12,6 +12,7 @@ import Alamofire
 import SwiftyJSON
 import GooglePlacePicker
 import GooglePlaces
+import FirebaseDatabase
 
 class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
@@ -29,6 +30,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
     
     var zoomLevel: Float = 15.0
 
+    var ref : DatabaseReference?
     
     @IBOutlet weak var MapShow: UIView!
     var statenames = ["Augusta ME","Concord NH","Boston MA","Providence RI","HartFord CT"]
@@ -44,6 +46,11 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
     var LocationManager = CLLocationManager()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
+        
+        
         
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -64,9 +71,9 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
             if let placeLikelihoodList = placeLikelihoodList {
                 let place = placeLikelihoodList.likelihoods.first?.place
                 if let place = place {
-                    
+                    self.ref = Database.database().reference()
                     self.addlbl.text = place.name
-                    
+                    self.ref?.child("Currentplacename").childByAutoId().setValue(place.name)
                 }
             }
         })
@@ -81,44 +88,47 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
         // Add the map to the view, hide it until we've got a location update.
         MapShow.addSubview(mapView)
         // viewmap.isHidden = true
-        let source = CLLocationCoordinate2DMake((locationManager.location?.coordinate.latitude)!,(locationManager.location?.coordinate.longitude)!)
-        let dest = CLLocationCoordinate2DMake(33.7017, 73.0228)
+     //   let source = CLLocationCoordinate2DMake((locationManager.location?.coordinate.latitude)!,(locationManager.location?.coordinate.longitude)!)
+   //     let dest = CLLocationCoordinate2DMake(33.7017, 73.0228)
         source1 = locationManager.location!
-        let dest1 = CLLocation(latitude: 33.7079, longitude: 73.0500)
+ //       let dest1 = CLLocation(latitude: 33.7079, longitude: 73.0500)
         //getPolylineeRoute(from: source, to: dest)
-        getplacesnearby(source: source1,dest: dest1,distance: 1000,type: "restaurant")
-        drawPath(startLocation: source1, endLocation: dest1)
-        addanotation(dest: dest1)
+     //   getplacesnearby(source: source1,dest: dest1,distance: 1000,type: "restaurant")
+      //  drawPath(startLocation: source1, endLocation: dest1)
+      //  addanotation(dest: dest1)
         
         
         
         
         // 1
-        let center = CLLocationCoordinate2DMake((source1.coordinate.latitude), (source1.coordinate.longitude))
-        let northEast = CLLocationCoordinate2DMake(center.latitude + 0.001, center.longitude + 0.001)
-        let southWest = CLLocationCoordinate2DMake(center.latitude - 0.001, center.longitude - 0.001)
-        let viewport = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
-        let config = GMSPlacePickerConfig(viewport: viewport)
-        self.placePicker = GMSPlacePicker(config: config)
-        
-        // 2
-        placePicker.pickPlace { (place: GMSPlace?, error: Error?) -> Void in
-            
-            if let error = error {
-                print("Error occurred: \(error.localizedDescription)")
-                return
-            }
-            // 3
-            if let place = place {
-                let coordinates = CLLocationCoordinate2DMake(place.coordinate.latitude, place.coordinate.longitude)
-                let marker = GMSMarker(position: coordinates)
-                marker.title = place.name
-                marker.map = self.mapView
-                self.mapView.animate(toLocation: coordinates)
-            } else {
-                print("No place was selected")
-            }
-        }
+//        let center = CLLocationCoordinate2DMake((source1.coordinate.latitude), (source1.coordinate.longitude))
+//        let northEast = CLLocationCoordinate2DMake(center.latitude + 0.001, center.longitude + 0.001)
+//        let southWest = CLLocationCoordinate2DMake(center.latitude - 0.001, center.longitude - 0.001)
+//        let viewport = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
+//        let config = GMSPlacePickerConfig(viewport: viewport)
+//        self.placePicker = GMSPlacePicker(config: config)
+//
+//        // 2
+//        placePicker.pickPlace { (place: GMSPlace?, error: Error?) -> Void in
+//
+//            if let error = error {
+//                print("Error occurred: \(error.localizedDescription)")
+//                return
+//            }
+//            // 3
+//            if let place = place {
+//                let coordinates = CLLocationCoordinate2DMake(place.coordinate.latitude, place.coordinate.longitude)
+//                let marker = GMSMarker(position: coordinates)
+//                marker.title = place.name
+//
+//
+//
+//                marker.map = self.mapView
+//                self.mapView.animate(toLocation: coordinates)
+//            } else {
+//                print("No place was selected")
+//            }
+//        }
 
             
         }
