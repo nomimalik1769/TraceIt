@@ -36,7 +36,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
     var statenames = ["Augusta ME","Concord NH","Boston MA","Providence RI","HartFord CT"]
   //  @IBOutlet weak var maptreace: MKMapView!
     var lat = 44.3310
-    var lon = 69.7795
+    var lon = -69.7795
     @IBOutlet weak var statepicker: UIPickerView!
     //augusta ME lat= 44.33106 long = 69.7795
 //concord NH lat= 43.2081 long = 71.5376
@@ -65,14 +65,14 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
         mapView = GMSMapView.map(withFrame: view.bounds, camera: camera)
         // mapView.settings.myLocationButton = true
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        mapView.isMyLocationEnabled = true
+       // mapView.isMyLocationEnabled = true
         
         // Add the map to the view, hide it until we've got a location update.
         MapShow.addSubview(mapView)
         // viewmap.isHidden = true
      //   let source = CLLocationCoordinate2DMake((locationManager.location?.coordinate.latitude)!,(locationManager.location?.coordinate.longitude)!)
    //     let dest = CLLocationCoordinate2DMake(33.7017, 73.0228)
-        source1 = locationManager.location!
+            source1 = CLLocation(latitude: lat, longitude: lon)
  //       let dest1 = CLLocation(latitude: 33.7079, longitude: 73.0500)
         //getPolylineeRoute(from: source, to: dest)
      //   getplacesnearby(source: source1,dest: dest1,distance: 1000,type: "restaurant")
@@ -112,6 +112,10 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
 //            }
 //        }
 
+        
+        
+        addanotation(dest: CLLocation(latitude: lat, longitude: lon))
+        
             
         }
     
@@ -123,6 +127,23 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
         
         let res =  distance(lat1: startLocation.coordinate.latitude, lon1: startLocation.coordinate.longitude, lat2: endLocation.coordinate.latitude, lon2: endLocation.coordinate.longitude, unit: "K")
         distancelbl.text = "Distance: "+String(res)
+
+        placesClient.currentPlace(callback: { (placeLikelihoodList, error) -> Void in
+            if let error = error {
+                print("Pick Place error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let placeLikelihoodList = placeLikelihoodList {
+                let place = placeLikelihoodList.likelihoods.first?.place
+                if let place = place {
+                    self.ref = Database.database().reference()
+                    self.addlbl.text = place.name
+                    self.ref?.child("UserInfo").childByAutoId().setValue(["Place": place.name ,"Latitude": endLocation.coordinate.latitude , "Longitude": endLocation.coordinate.longitude])
+                    
+                }
+            }
+        })
 
         
         
@@ -429,23 +450,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
         let loc = locations[0]
         print("Latitude : \(loc.coordinate.latitude) and Longitude : \(loc.coordinate.latitude)")
         
-        placesClient.currentPlace(callback: { (placeLikelihoodList, error) -> Void in
-            if let error = error {
-                print("Pick Place error: \(error.localizedDescription)")
-                return
-            }
-            
-            if let placeLikelihoodList = placeLikelihoodList {
-                let place = placeLikelihoodList.likelihoods.first?.place
-                if let place = place {
-                    self.ref = Database.database().reference()
-                    self.addlbl.text = place.name
-                    self.ref?.child("UserInfo").childByAutoId().setValue(["Place": place.name ,"Latitude": self.addlbl.text! , "Longitude": self.distancelbl.text!])
-                    
-                }
-            }
-        })
-
+        
         
         
         print("Speed: \(loc.speed)")
@@ -473,9 +478,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
         let location: CLLocation = locations.last!
         print("Location: \(location)")
         
-        let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,
-                                              longitude: location.coordinate.longitude,
-                                              zoom: zoomLevel)
+        let camera = GMSCameraPosition.camera(withLatitude: lat,longitude: lon,zoom: zoomLevel)
         
         if mapView.isHidden {
             mapView.isHidden = false
@@ -539,30 +542,38 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if (row == 0)
         {
-            var lat = 44.3310
-            var lon = 69.7795
+             lat = 44.3310
+             lon = -69.7795
+            
         }
 
         if (row == 1)
         {
             lat = 43.2081
-            lon = 71.5376
+            lon = -71.5376
+            print("Concord")
         }
         if (row == 2)
         {
             lat = 42.3601
-            lon = 71.0589
+            lon = -71.0589
         }
         if (row == 3)
         {
             lat = 41.8240
-            lon = 71.4128
+            lon = -71.4128
         }
         if(row == 4)
         {
             lat = 41.7637
-            lon = 72.6851
+            lon = -72.6851
         }
+        let camera = GMSCameraPosition.camera(withLatitude: (lat),longitude: (lon),zoom: zoomLevel)
+        mapView.clear()
+        mapView = GMSMapView.map(withFrame: view.bounds, camera: camera)
+        mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        MapShow.addSubview(mapView)
+        addanotation(dest: CLLocation(latitude: lat, longitude: lon))
     }
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let myTitle = NSAttributedString(string: statenames[row], attributes: [NSAttributedStringKey.font:UIFont(name: "Georgia", size: 15.0)!,NSAttributedStringKey.foregroundColor:UIColor.green])
