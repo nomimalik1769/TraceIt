@@ -35,7 +35,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
     @IBOutlet weak var MapShow: UIView!
     var statenames = ["Augusta ME","Concord NH","Boston MA","Providence RI","HartFord CT"]
   //  @IBOutlet weak var maptreace: MKMapView!
-    
+    var lat = 44.3310
+    var lon = 69.7795
     @IBOutlet weak var statepicker: UIPickerView!
     //augusta ME lat= 44.33106 long = 69.7795
 //concord NH lat= 43.2081 long = 71.5376
@@ -47,11 +48,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
-        
-        
-        
+      
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
@@ -62,23 +59,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
         placesClient = GMSPlacesClient.shared()
         
         
-        placesClient.currentPlace(callback: { (placeLikelihoodList, error) -> Void in
-            if let error = error {
-                print("Pick Place error: \(error.localizedDescription)")
-                return
-            }
-            
-            if let placeLikelihoodList = placeLikelihoodList {
-                let place = placeLikelihoodList.likelihoods.first?.place
-                if let place = place {
-                    self.ref = Database.database().reference()
-                    self.addlbl.text = place.name
-                    self.ref?.child("Currentplacename").childByAutoId().setValue(place.name)
-                }
-            }
-        })
         
-        let camera = GMSCameraPosition.camera(withLatitude: (locationManager.location?.coordinate.latitude)!,longitude: (locationManager.location?.coordinate.longitude)!,zoom: zoomLevel)
+        let camera = GMSCameraPosition.camera(withLatitude: (lat),longitude: (lon),zoom: zoomLevel)
         
         mapView = GMSMapView.map(withFrame: view.bounds, camera: camera)
         // mapView.settings.myLocationButton = true
@@ -443,8 +425,29 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
+        
         let loc = locations[0]
         print("Latitude : \(loc.coordinate.latitude) and Longitude : \(loc.coordinate.latitude)")
+        
+        placesClient.currentPlace(callback: { (placeLikelihoodList, error) -> Void in
+            if let error = error {
+                print("Pick Place error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let placeLikelihoodList = placeLikelihoodList {
+                let place = placeLikelihoodList.likelihoods.first?.place
+                if let place = place {
+                    self.ref = Database.database().reference()
+                    self.addlbl.text = place.name
+                    self.ref?.child("UserInfo").childByAutoId().setValue(["Place": place.name ,"Latitude": self.addlbl.text! , "Longitude": self.distancelbl.text!])
+                    
+                }
+            }
+        })
+
+        
+        
         print("Speed: \(loc.speed)")
         print("Location altitude: \(loc.altitude)")
         CLGeocoder().reverseGeocodeLocation(loc) { (placemarks , error ) in
@@ -528,7 +531,39 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return statenames.count
     }
+    //concord NH lat= 43.2081 long = 71.5376
+    //bostan MA lat = 42.3601 long = 71.0589
+    //Providence RI lat = 41/8240 long=71.4128
+    //hartford CT lat = 41.7637 long = 72.6851
     
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if (row == 0)
+        {
+            var lat = 44.3310
+            var lon = 69.7795
+        }
+
+        if (row == 1)
+        {
+            lat = 43.2081
+            lon = 71.5376
+        }
+        if (row == 2)
+        {
+            lat = 42.3601
+            lon = 71.0589
+        }
+        if (row == 3)
+        {
+            lat = 41.8240
+            lon = 71.4128
+        }
+        if(row == 4)
+        {
+            lat = 41.7637
+            lon = 72.6851
+        }
+    }
     func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let myTitle = NSAttributedString(string: statenames[row], attributes: [NSAttributedStringKey.font:UIFont(name: "Georgia", size: 15.0)!,NSAttributedStringKey.foregroundColor:UIColor.green])
         return myTitle

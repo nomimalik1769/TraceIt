@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '935F7BA51718C65FC8E3CED71F5574A9'
+               BlueprintIdentifier = 'D9D6F1C448E71F0BE0C3C57830BC0FC4'
                BlueprintName = 'Pods-Map Tracing'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Pods-Map Tracing.framework'>
