@@ -138,7 +138,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
                 let place = placeLikelihoodList.likelihoods.first?.place
                 if let place = place {
                     self.ref = Database.database().reference()
-                    self.addlbl.text = place.name
+                    //self.addlbl.text = place.name
                     self.ref?.child("UserInfo").childByAutoId().setValue(["Place": place.name ,"Latitude": endLocation.coordinate.latitude , "Longitude": endLocation.coordinate.longitude])
                     
                 }
@@ -544,6 +544,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
         {
              lat = 44.3310
              lon = -69.7795
+            addlbl.text = "Augusta, ME"
             
         }
 
@@ -552,22 +553,27 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
             lat = 43.2081
             lon = -71.5376
             print("Concord")
+            addlbl.text = "Concord NH"
         }
         if (row == 2)
         {
             lat = 42.3601
             lon = -71.0589
+            addlbl.text = "Boston MA"
         }
         if (row == 3)
         {
             lat = 41.8240
             lon = -71.4128
+            addlbl.text = "Providence RI"
         }
         if(row == 4)
         {
             lat = 41.7637
             lon = -72.6851
+            addlbl.text = "HartFord CT"
         }
+        
         let camera = GMSCameraPosition.camera(withLatitude: (lat),longitude: (lon),zoom: zoomLevel)
         mapView.clear()
         mapView = GMSMapView.map(withFrame: view.bounds, camera: camera)
