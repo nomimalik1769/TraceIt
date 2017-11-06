@@ -29,7 +29,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
     // The currently selected place.
     var selectedPlace: GMSPlace?
     
-    var zoomLevel: Float = 15.0
+    var zoomLevel: Float = 11.0
     var start = ""
     var end = ""
     var ref : DatabaseReference?
@@ -50,29 +50,69 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
     
     
     @IBAction func Circles(_ sender: Any) {
+        mapView.clear()
         let circleCenter = CLLocationCoordinate2D(latitude: 44.33106, longitude: -69.7795)
         let circ = GMSCircle(position: circleCenter, radius: 1000)
         circ.strokeWidth = 4
-        circ.strokeColor = .red
+        circ.strokeColor = .black
         circ.map = mapView
         
     }
     
     @IBAction func Rectangles(_ sender: Any) {
         // Create a rectangular path
+         mapView.clear()
         let rect = GMSMutablePath()
+        if(addlbl.text == statenames[0])
+        {
         rect.add(CLLocationCoordinate2D(latitude: 44.33, longitude: -69.7))
-        rect.add(CLLocationCoordinate2D(latitude: 44.41, longitude: -69.7))
-        rect.add(CLLocationCoordinate2D(latitude: 44.33, longitude: -69.9))
-        rect.add(CLLocationCoordinate2D(latitude: 44.41, longitude: -69.9))
-        
+        rect.add(CLLocationCoordinate2D(latitude: 44.38, longitude: -69.7))
+        rect.add(CLLocationCoordinate2D(latitude: 44.38, longitude: -69.8))
+        rect.add(CLLocationCoordinate2D(latitude: 44.33, longitude: -69.8))
+        rect.add(CLLocationCoordinate2D(latitude: 44.33106, longitude: -69.7795))
+        }
+        //lat= 43.2081 long = 71.5376
+        if(addlbl.text == statenames[1])
+        {
+            rect.add(CLLocationCoordinate2D(latitude: 43.20, longitude: -71.5))
+            rect.add(CLLocationCoordinate2D(latitude: 43.27, longitude: -71.5))
+            rect.add(CLLocationCoordinate2D(latitude: 43.27, longitude: -71.7))
+            rect.add(CLLocationCoordinate2D(latitude: 43.20, longitude: -71.7))
+            rect.add(CLLocationCoordinate2D(latitude: 43.2081, longitude: -71.5376))
+        }
+        //lat = 42.3601 long = 71.0589
+        if(addlbl.text == statenames[2])
+        {
+            rect.add(CLLocationCoordinate2D(latitude: 42.36, longitude: -71.0))
+            rect.add(CLLocationCoordinate2D(latitude: 42.44, longitude: -71.0))
+            rect.add(CLLocationCoordinate2D(latitude: 42.44, longitude: -71.2))
+            rect.add(CLLocationCoordinate2D(latitude: 42.36, longitude: -71.2))
+            rect.add(CLLocationCoordinate2D(latitude: 42.3601, longitude: -71.0589))
+        }
+        //lat = 41.8240 long=71.4128
+        if(addlbl.text == statenames[3])
+        {
+            rect.add(CLLocationCoordinate2D(latitude: 41.82, longitude: -71.4))
+            rect.add(CLLocationCoordinate2D(latitude: 41.88, longitude: -71.4))
+            rect.add(CLLocationCoordinate2D(latitude: 41.88, longitude: -71.6))
+            rect.add(CLLocationCoordinate2D(latitude: 41.82, longitude: -71.6))
+            rect.add(CLLocationCoordinate2D(latitude: 41.8840, longitude: -71.4128))
+        }
+        //lat = 41.7637 long = 72.6851
+        if(addlbl.text == statenames[4])
+        {
+            rect.add(CLLocationCoordinate2D(latitude: 41.76, longitude: -72.6))
+            rect.add(CLLocationCoordinate2D(latitude: 42.02, longitude: -72.6))
+            rect.add(CLLocationCoordinate2D(latitude: 44.38, longitude: -72.8))
+            rect.add(CLLocationCoordinate2D(latitude: 44.38, longitude: -72.8))
+            rect.add(CLLocationCoordinate2D(latitude: 41.7637, longitude: -72.6851))
+        }
         // Create the polygon, and assign it to the map.
         let polygon = GMSPolygon(path: rect)
         polygon.fillColor = UIColor(red: 0.25, green: 0, blue: 0, alpha: 0.05);
-        polygon.strokeColor = .red
+        polygon.strokeColor = .black
         polygon.strokeWidth = 4
         polygon.map = mapView
-        
     }
     
     
@@ -116,32 +156,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
         
             print(b)
         
-        let center = CLLocationCoordinate2DMake((source1.coordinate.latitude), (source1.coordinate.longitude))
-        let northEast = CLLocationCoordinate2DMake(center.latitude + 0.001, center.longitude + 0.001)
-        let southWest = CLLocationCoordinate2DMake(center.latitude - 0.001, center.longitude - 0.001)
-        let viewport = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
-        let config = GMSPlacePickerConfig(viewport: viewport)
-        self.placePicker = GMSPlacePicker(config: config)
         
-        // 2
-        placePicker.pickPlace { (place: GMSPlace?, error: Error?) -> Void in
-            
-            if let error = error {
-                print("Error occurred: \(error.localizedDescription)")
-                return
-            }
-            // 3
-            if let place = place {
-                let coordinates = CLLocationCoordinate2DMake(place.coordinate.latitude, place.coordinate.longitude)
-                let marker = GMSMarker(position: coordinates)
-                marker.title = place.name
-                marker.map = self.mapView
-                self.mapView.animate(toLocation: coordinates)
-            } else {
-                print("No place was selected")
-            }
-        }
-           
         // 1
 //        let center = CLLocationCoordinate2DMake((source1.coordinate.latitude), (source1.coordinate.longitude))
 //        let northEast = CLLocationCoordinate2DMake(center.latitude + 0.001, center.longitude + 0.001)
@@ -532,7 +547,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
         let loc = locations[0]
         print("Latitude : \(loc.coordinate.latitude) and Longitude : \(loc.coordinate.latitude)")
         
-     
+        
         
         
         print("Speed: \(loc.speed)")
@@ -549,6 +564,10 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
                     // var address = " "
                     if placemark.subThoroughfare != nil
                     {
+                        if(self.start == "")
+                        {
+                            self.start = placemark.name!
+                        }
                         print(placemark.country!)
                         print(placemark.name!)
                         print(placemark.subThoroughfare!)
