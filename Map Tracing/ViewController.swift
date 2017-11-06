@@ -30,7 +30,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
     var selectedPlace: GMSPlace?
     
     var zoomLevel: Float = 15.0
-
+    var start = ""
+    var end = ""
     var ref : DatabaseReference?
     
     @IBOutlet weak var MapShow: UIView!
@@ -46,6 +47,35 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
 //hartford CT lat = 41.7637 long = 72.6851
     
     var LocationManager = CLLocationManager()
+    
+    
+    @IBAction func Circles(_ sender: Any) {
+        let circleCenter = CLLocationCoordinate2D(latitude: 44.33106, longitude: -69.7795)
+        let circ = GMSCircle(position: circleCenter, radius: 1000)
+        circ.strokeWidth = 4
+        circ.strokeColor = .red
+        circ.map = mapView
+        
+    }
+    
+    @IBAction func Rectangles(_ sender: Any) {
+        // Create a rectangular path
+        let rect = GMSMutablePath()
+        rect.add(CLLocationCoordinate2D(latitude: 44.33, longitude: -69.7))
+        rect.add(CLLocationCoordinate2D(latitude: 44.41, longitude: -69.7))
+        rect.add(CLLocationCoordinate2D(latitude: 44.33, longitude: -69.9))
+        rect.add(CLLocationCoordinate2D(latitude: 44.41, longitude: -69.9))
+        
+        // Create the polygon, and assign it to the map.
+        let polygon = GMSPolygon(path: rect)
+        polygon.fillColor = UIColor(red: 0.25, green: 0, blue: 0, alpha: 0.05);
+        polygon.strokeColor = .red
+        polygon.strokeWidth = 4
+        polygon.map = mapView
+        
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -86,9 +116,32 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
         
             print(b)
         
+        let center = CLLocationCoordinate2DMake((source1.coordinate.latitude), (source1.coordinate.longitude))
+        let northEast = CLLocationCoordinate2DMake(center.latitude + 0.001, center.longitude + 0.001)
+        let southWest = CLLocationCoordinate2DMake(center.latitude - 0.001, center.longitude - 0.001)
+        let viewport = GMSCoordinateBounds(coordinate: northEast, coordinate: southWest)
+        let config = GMSPlacePickerConfig(viewport: viewport)
+        self.placePicker = GMSPlacePicker(config: config)
         
-        
-        
+        // 2
+        placePicker.pickPlace { (place: GMSPlace?, error: Error?) -> Void in
+            
+            if let error = error {
+                print("Error occurred: \(error.localizedDescription)")
+                return
+            }
+            // 3
+            if let place = place {
+                let coordinates = CLLocationCoordinate2DMake(place.coordinate.latitude, place.coordinate.longitude)
+                let marker = GMSMarker(position: coordinates)
+                marker.title = place.name
+                marker.map = self.mapView
+                self.mapView.animate(toLocation: coordinates)
+            } else {
+                print("No place was selected")
+            }
+        }
+           
         // 1
 //        let center = CLLocationCoordinate2DMake((source1.coordinate.latitude), (source1.coordinate.longitude))
 //        let northEast = CLLocationCoordinate2DMake(center.latitude + 0.001, center.longitude + 0.001)
@@ -148,7 +201,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
                     self.addlbl.text = place.name
                     //self.ref?.child("UserInfo").childByAutoId().setValue(["Place": place.name ,"Latitude": endLocation.coordinate.latitude , "Longitude": endLocation.coordinate.longitude])
                    
-                    
                 }
             }
         })
@@ -182,6 +234,14 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
                 polyline.strokeColor = UIColor.red
                 polyline.map = self.mapView
             }
+            
+            let defaults:UserDefaults = UserDefaults.standard
+            defaults.setValue(self.start, forKey: "start")
+            defaults.setValue(self.end, forKey: "end")
+            
+            for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
+                print("\(key) = \(value) \n")
+            }
            // let appdelegate = UIApplication.shared.delegate as! AppDelegate
             //    let context = appdelegate.persistentContainer.viewContext
           //      let newlocation = NSEntityDescription.insertNewObject(forEntityName: "Location", into: context)
@@ -195,7 +255,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
                 //{
                 //    print("Not Saved")
                // }
-            DBManager.shared.Locinsert(sname: String(origin), ename: String(destination), mname:"Music4")
+            
             
         }
     }
@@ -206,7 +266,6 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
         drop.position.latitude = dest.coordinate.latitude
         drop.position.longitude = dest.coordinate.longitude
         drop.map = mapView
-        
     }
     
     func fitAllMarkers(_path: GMSMutablePath) {
@@ -339,6 +398,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
                 print(place)
                 let coordinates = CLLocationCoordinate2DMake(place.coordinate.latitude, place.coordinate.longitude)
                 let marker = GMSMarker(position: coordinates)
+                self.end = place.name
                 marker.title = place.name
                 marker.map = self.mapView
                 let destt = CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
@@ -472,7 +532,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
         let loc = locations[0]
         print("Latitude : \(loc.coordinate.latitude) and Longitude : \(loc.coordinate.latitude)")
         
-        
+     
         
         
         print("Speed: \(loc.speed)")
@@ -490,7 +550,12 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
                     if placemark.subThoroughfare != nil
                     {
                         print(placemark.country!)
+                        print(placemark.name!)
                         print(placemark.subThoroughfare!)
+                        if(placemark.name == self.end)
+                        {
+                            DBManager.shared.Locinsert(sname: String(self.start), ename: String(self.end))
+                        }
                     }
                 }
             }
