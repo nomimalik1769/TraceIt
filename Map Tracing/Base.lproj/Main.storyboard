@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -31,7 +31,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="70"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNY-4v-m9E">
-                                        <rect key="frame" x="408" y="8" width="208" height="59.5"/>
+                                        <rect key="frame" x="494" y="8" width="36.5" height="59.5"/>
                                         <attributedString key="attributedText">
                                             <fragment content="0">
                                                 <attributes>
@@ -86,11 +86,11 @@
                                     <constraint firstAttribute="bottom" secondItem="Du0-9o-AJc" secondAttribute="bottom" id="Fac-XK-EyL"/>
                                     <constraint firstItem="0zc-4V-Naf" firstAttribute="leading" secondItem="Du0-9o-AJc" secondAttribute="trailing" constant="8" id="Hd4-JD-dpO"/>
                                     <constraint firstItem="Egp-GS-Hef" firstAttribute="top" secondItem="5ZC-aE-zwk" secondAttribute="top" constant="24" id="IeQ-YM-ax7"/>
-                                    <constraint firstItem="bNY-4v-m9E" firstAttribute="leading" secondItem="0zc-4V-Naf" secondAttribute="trailing" constant="170" id="Kcz-g5-cQb"/>
+                                    <constraint firstItem="bNY-4v-m9E" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="0zc-4V-Naf" secondAttribute="trailing" id="Kcz-g5-cQb"/>
                                     <constraint firstItem="bNY-4v-m9E" firstAttribute="top" secondItem="5ZC-aE-zwk" secondAttribute="top" constant="8" id="P4J-E3-yp8"/>
                                     <constraint firstItem="Egp-GS-Hef" firstAttribute="leading" secondItem="0zc-4V-Naf" secondAttribute="trailing" constant="524.5" id="YDT-i3-L13"/>
-                                    <constraint firstItem="bNY-4v-m9E" firstAttribute="leading" secondItem="0zc-4V-Naf" secondAttribute="trailing" constant="170" id="Ytu-q5-kSx"/>
-                                    <constraint firstItem="Egp-GS-Hef" firstAttribute="leading" secondItem="bNY-4v-m9E" secondAttribute="trailing" constant="146.5" id="jCL-ki-AU8"/>
+                                    <constraint firstItem="bNY-4v-m9E" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="0zc-4V-Naf" secondAttribute="trailing" id="Ytu-q5-kSx"/>
+                                    <constraint firstItem="Egp-GS-Hef" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bNY-4v-m9E" secondAttribute="trailing" id="jCL-ki-AU8"/>
                                     <constraint firstItem="Du0-9o-AJc" firstAttribute="leading" secondItem="5ZC-aE-zwk" secondAttribute="leading" id="kna-23-OVH"/>
                                     <constraint firstAttribute="height" constant="70" id="rLp-ah-Ixu"/>
                                     <constraint firstItem="0zc-4V-Naf" firstAttribute="top" secondItem="5ZC-aE-zwk" secondAttribute="top" constant="19" id="wnQ-aM-y6X"/>
@@ -146,7 +146,7 @@
                                     <color key="titleColor" red="0.17840117216110229" green="0.80023413896560669" blue="0.44249683618545532" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Nbj-Rt-SaF" kind="show" id="Pg8-K2-adT"/>
+                                    <segue destination="Nbj-Rt-SaF" kind="presentation" id="gc3-Vj-iGS"/>
                                 </connections>
                             </button>
                         </subviews>

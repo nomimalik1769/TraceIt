@@ -10,6 +10,13 @@
 		774D462A37A30F9E09126B99 /* Pods_Map_Tracing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A54BA3E6E393105B02979A9 /* Pods_Map_Tracing.framework */; };
 		840AE0811F99956000920A49 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 840AE07F1F99955100920A49 /* GoogleMaps.bundle */; };
 		8492B1811F9498AB007B6F13 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8492B1801F9498AA007B6F13 /* CoreLocation.framework */; };
+		84EF686C1FB021ED0062A15C /* DBClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EF686B1FB021ED0062A15C /* DBClass.swift */; };
+		84EF68701FB03B460062A15C /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EF686F1FB03B460062A15C /* DBManager.swift */; };
+		84F531DF1FAF8B54009B62F8 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F531D51FAF8B50009B62F8 /* FMDatabase.m */; };
+		84F531E01FAF8B54009B62F8 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F531D61FAF8B51009B62F8 /* FMDatabasePool.m */; };
+		84F531E11FAF8B54009B62F8 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F531D91FAF8B52009B62F8 /* FMResultSet.m */; };
+		84F531E21FAF8B54009B62F8 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F531DD1FAF8B53009B62F8 /* FMDatabaseAdditions.m */; };
+		84F531E31FAF8B54009B62F8 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F531DE1FAF8B54009B62F8 /* FMDatabaseQueue.m */; };
 		84FE4B6B1F95DE3800F5E827 /* MusicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FE4B6A1F95DE3800F5E827 /* MusicController.swift */; };
 		84FE4B791F960BE100F5E827 /* MusicViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FE4B781F960BE100F5E827 /* MusicViewCell.swift */; };
 		B031FD861F99C133003880A0 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B031FD851F99C132003880A0 /* GoogleService-Info.plist */; };
@@ -33,6 +40,20 @@
 		5A49583FA12E46926C343F31 /* Pods-Map Tracing.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Map Tracing.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Map Tracing/Pods-Map Tracing.debug.xcconfig"; sourceTree = "<group>"; };
 		840AE07F1F99955100920A49 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		8492B1801F9498AA007B6F13 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		84EF686B1FB021ED0062A15C /* DBClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBClass.swift; sourceTree = "<group>"; };
+		84EF686F1FB03B460062A15C /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
+		84F531D31FAF8B4E009B62F8 /* Map Tracing-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Map Tracing-Bridging-Header.h"; sourceTree = "<group>"; };
+		84F531D41FAF8B4F009B62F8 /* FMResultSet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		84F531D51FAF8B50009B62F8 /* FMDatabase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		84F531D61FAF8B51009B62F8 /* FMDatabasePool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		84F531D71FAF8B52009B62F8 /* FMDatabasePool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		84F531D81FAF8B52009B62F8 /* FMDatabase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		84F531D91FAF8B52009B62F8 /* FMResultSet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		84F531DA1FAF8B53009B62F8 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		84F531DB1FAF8B53009B62F8 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		84F531DC1FAF8B53009B62F8 /* FMDB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		84F531DD1FAF8B53009B62F8 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		84F531DE1FAF8B54009B62F8 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
 		84FE4B6A1F95DE3800F5E827 /* MusicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicController.swift; sourceTree = "<group>"; };
 		84FE4B781F960BE100F5E827 /* MusicViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicViewCell.swift; sourceTree = "<group>"; };
 		B031FD7C1F99B1E5003880A0 /* Music2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Music2.mp3; sourceTree = SOURCE_ROOT; };
@@ -118,6 +139,19 @@
 			children = (
 				840AE0801F99955100920A49 /* Resources */,
 				B0B313781F947FB800226776 /* AppDelegate.swift */,
+				84F531D81FAF8B52009B62F8 /* FMDatabase.h */,
+				84F531D51FAF8B50009B62F8 /* FMDatabase.m */,
+				84F531DB1FAF8B53009B62F8 /* FMDatabaseAdditions.h */,
+				84EF686F1FB03B460062A15C /* DBManager.swift */,
+				84F531DD1FAF8B53009B62F8 /* FMDatabaseAdditions.m */,
+				84F531D71FAF8B52009B62F8 /* FMDatabasePool.h */,
+				84F531D61FAF8B51009B62F8 /* FMDatabasePool.m */,
+				84F531DA1FAF8B53009B62F8 /* FMDatabaseQueue.h */,
+				84EF686B1FB021ED0062A15C /* DBClass.swift */,
+				84F531DE1FAF8B54009B62F8 /* FMDatabaseQueue.m */,
+				84F531DC1FAF8B53009B62F8 /* FMDB.h */,
+				84F531D41FAF8B4F009B62F8 /* FMResultSet.h */,
+				84F531D91FAF8B52009B62F8 /* FMResultSet.m */,
 				B031FD851F99C132003880A0 /* GoogleService-Info.plist */,
 				B0B3137A1F947FB800226776 /* ViewController.swift */,
 				B0B3137C1F947FB800226776 /* Main.storyboard */,
@@ -135,6 +169,7 @@
 				B031FD801F99B1E6003880A0 /* Sound4.mp3 */,
 				B0B313811F947FB800226776 /* LaunchScreen.storyboard */,
 				B0B313841F947FB800226776 /* Info.plist */,
+				84F531D31FAF8B4E009B62F8 /* Map Tracing-Bridging-Header.h */,
 			);
 			path = "Map Tracing";
 			sourceTree = "<group>";
@@ -174,6 +209,7 @@
 				TargetAttributes = {
 					B0B313741F947FB800226776 = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -292,9 +328,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0B3137B1F947FB800226776 /* ViewController.swift in Sources */,
+				84F531E01FAF8B54009B62F8 /* FMDatabasePool.m in Sources */,
+				84F531E11FAF8B54009B62F8 /* FMResultSet.m in Sources */,
 				B0B313791F947FB800226776 /* AppDelegate.swift in Sources */,
 				84FE4B791F960BE100F5E827 /* MusicViewCell.swift in Sources */,
+				84F531DF1FAF8B54009B62F8 /* FMDatabase.m in Sources */,
 				84FE4B6B1F95DE3800F5E827 /* MusicController.swift in Sources */,
+				84F531E21FAF8B54009B62F8 /* FMDatabaseAdditions.m in Sources */,
+				84EF686C1FB021ED0062A15C /* DBClass.swift in Sources */,
+				84F531E31FAF8B54009B62F8 /* FMDatabaseQueue.m in Sources */,
+				84EF68701FB03B460062A15C /* DBManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,6 +476,7 @@
 			baseConfigurationReference = 5A49583FA12E46926C343F31 /* Pods-Map Tracing.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2GNRYR6Q65;
 				INFOPLIST_FILE = "Map Tracing/Info.plist";
@@ -440,6 +484,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "globiatechnologies.Map-Tracing";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Map Tracing/Map Tracing-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -450,6 +496,7 @@
 			baseConfigurationReference = EB94B992320DBE1A4DDB0680 /* Pods-Map Tracing.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2GNRYR6Q65;
 				INFOPLIST_FILE = "Map Tracing/Info.plist";
@@ -457,6 +504,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "globiatechnologies.Map-Tracing";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Map Tracing/Map Tracing-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};

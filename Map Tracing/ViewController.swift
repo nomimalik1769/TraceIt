@@ -14,6 +14,7 @@ import GooglePlacePicker
 import GooglePlaces
 import FirebaseDatabase
 
+@available(iOS 10.0, *)
 class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
     @IBOutlet weak var distancelbl: UILabel!
@@ -126,7 +127,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
         
         
         let res =  distance(lat1: startLocation.coordinate.latitude, lon1: startLocation.coordinate.longitude, lat2: endLocation.coordinate.latitude, lon2: endLocation.coordinate.longitude, unit: "K")
-        distancelbl.text = "Distance: "+String(res)
+        distancelbl.text = "Distance: "+String(format:"%.02f", res) + "Km/h"
 
         placesClient.currentPlace(callback: { (placeLikelihoodList, error) -> Void in
             if let error = error {
@@ -137,15 +138,16 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
             if let placeLikelihoodList = placeLikelihoodList {
                 let place = placeLikelihoodList.likelihoods.first?.place
                 if let place = place {
-                    self.ref = Database.database().reference()
-                    //self.addlbl.text = place.name
-                    self.ref?.child("UserInfo").childByAutoId().setValue(["Place": place.name ,"Latitude": endLocation.coordinate.latitude , "Longitude": endLocation.coordinate.longitude])
+                    //self.ref = Database.database().reference()
+                    self.addlbl.text = place.name
+                    //self.ref?.child("UserInfo").childByAutoId().setValue(["Place": place.name ,"Latitude": endLocation.coordinate.latitude , "Longitude": endLocation.coordinate.longitude])
+                   
                     
                 }
             }
         })
 
-        
+       
         
         print(origin)
         print(destination)
@@ -174,6 +176,20 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
                 polyline.strokeColor = UIColor.red
                 polyline.map = self.mapView
             }
+           // let appdelegate = UIApplication.shared.delegate as! AppDelegate
+            //    let context = appdelegate.persistentContainer.viewContext
+          //      let newlocation = NSEntityDescription.insertNewObject(forEntityName: "Location", into: context)
+          //      newlocation.setValue(String(startLocation.coordinate.latitude) + "," + String(startLocation.coordinate.longitude), forKey: "slocation")
+          //      newlocation.setValue(String(endLocation.coordinate.latitude) + "," + String(endLocation.coordinate.longitude), forKey: "elocation")
+         //       do{
+           //         try context.save()
+          //          print("Data Saved Successfully")
+          //      }
+              //  catch
+                //{
+                //    print("Not Saved")
+               // }
+            DBManager.shared.Locinsert(sname: String(origin), ename: String(destination), mname:"Music4")
             
         }
     }
