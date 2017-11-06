@@ -39,7 +39,7 @@ class DBManager: NSObject {
             //if database != nil {
             // Open the database.
             if database.open() {
-                let LocationTable = "create table Location (sname text not null,ename text not null,mname text not null)"
+                let LocationTable = "create table Location (sname text,ename text,mname text)"
                 
                 do {
                     try database.executeUpdate(LocationTable, values: nil)
@@ -66,12 +66,14 @@ class DBManager: NSObject {
     }
     
     func openDatabase() -> Bool {
+       print(database)
         if database == nil {
             if FileManager.default.fileExists(atPath: pathToDatabase) {
                 database = FMDatabase(path: pathToDatabase)
+                print(pathToDatabase)
             }
         }
-        
+        print(database)
         if database != nil {
             if database.open() {
                 return true
@@ -85,13 +87,13 @@ func Locinsert(sname:String, ename:String, mname:String)
 {
     if openDatabase()
     {
-        if database.tableExists("LocationTable")
+        if database.tableExists("Location")
         {
             do
             {
                 
-                try database.executeQuery("insert into LocationTable(sname,ename,mname) values(?,?,?)", values: [sname,ename,mname])
-                
+                try database.executeUpdate("insert into Location(sname,ename,mname) values(?,?,?)", values: [sname,ename,mname])
+                print("Inserted")
             }
             catch
             {

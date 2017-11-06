@@ -82,6 +82,12 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
         
         
         
+         let b =  DBManager.shared.createDatabase()
+        
+            print(b)
+        
+        
+        
         
         // 1
 //        let center = CLLocationCoordinate2DMake((source1.coordinate.latitude), (source1.coordinate.longitude))
