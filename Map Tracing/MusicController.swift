@@ -8,11 +8,13 @@
 
 import UIKit
 import AVFoundation
+ var music = ""
 class MusicController: UIViewController,UITableViewDelegate,UITableViewDataSource {
-
+    var count = 0
     var songs = ["Music1","Music2","Music3","Music4"]
     var songs1 = ["Sound1","Sound2","Sound3","Sound4"]
     var cataogories = ["Music","Sounds"]
+   
     var audio = AVAudioPlayer()
     @IBOutlet weak var musictableview: UITableView!
     override func viewDidLoad() {
@@ -30,15 +32,34 @@ class MusicController: UIViewController,UITableViewDelegate,UITableViewDataSourc
         return songs.count
     }
     
+    @IBAction func selectMustic(_ sender: Any) {
+        if count == 0
+        {
+            music = "Music1"
+        }
+        else if(count == 1)
+        {
+        UserDefaults.standard.set(music, forKey: "music")
+        let nameObject = UserDefaults.standard.object(forKey: "music")
+        if let name = nameObject as? String {
+            print(name)
+        }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var audiopath = ""
         if indexPath.section == 0
         {
             audiopath = Bundle.main.path(forResource: songs[indexPath.row], ofType: "mp3")!
+             music = String(songs[indexPath.row])
+            count = 1
         }
         else
         {
             audiopath = Bundle.main.path(forResource: songs1[indexPath.row], ofType: "mp3")!
+             music = String(songs1[indexPath.row])
+            count = 1
         }
         do
         {
@@ -56,7 +77,7 @@ class MusicController: UIViewController,UITableViewDelegate,UITableViewDataSourc
         {
         let cell1 = musictableview.dequeueReusableCell(withIdentifier: "cell") as! MusicViewCell
         cell1.textLabel?.text = self.songs[indexPath.row]
-        
+       
         cell = cell1
         }
         

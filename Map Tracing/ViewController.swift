@@ -29,9 +29,11 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
     // The currently selected place.
     var selectedPlace: GMSPlace?
     
-    var zoomLevel: Float = 11.0
+    var zoomLevel: Float = 17.0
     var start = ""
     var end = ""
+    var lname = ""
+    var currentplace = ""
     var ref : DatabaseReference?
     
     @IBOutlet weak var MapShow: UIView!
@@ -51,28 +53,47 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
     
     @IBAction func Circles(_ sender: Any) {
         mapView.clear()
-        let circleCenter = CLLocationCoordinate2D(latitude: 44.33106, longitude: -69.7795)
+        var circleCenter = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+        if (lname == statenames[0]) {
+         circleCenter = CLLocationCoordinate2D(latitude: 44.33106, longitude: -69.7795)
+        }
+        if(lname == statenames[1]){
+            circleCenter = CLLocationCoordinate2D(latitude: 43.2081, longitude: -71.5376)
+            
+        }
+        if(lname == statenames[2]){
+            circleCenter = CLLocationCoordinate2D(latitude: 42.3601, longitude: -71.0589)
+        }
+        if(lname == statenames[3]){
+            circleCenter = CLLocationCoordinate2D(latitude: 41.8840, longitude: -71.4128)
+            
+        }
+        if(lname == statenames[4]){
+            circleCenter = CLLocationCoordinate2D(latitude: 41.7637, longitude: -72.6851)
+            
+        }
+        
         let circ = GMSCircle(position: circleCenter, radius: 1000)
         circ.strokeWidth = 4
         circ.strokeColor = .black
         circ.map = mapView
-        
+        drawPath(startLocation: st1, endLocation: dt1)
     }
-    
+   
     @IBAction func Rectangles(_ sender: Any) {
         // Create a rectangular path
          mapView.clear()
-        let rect = GMSMutablePath()
-        if(addlbl.text == statenames[0])
+         let rect = GMSMutablePath()
+        if(lname == statenames[0])
         {
-        rect.add(CLLocationCoordinate2D(latitude: 44.33, longitude: -69.7))
-        rect.add(CLLocationCoordinate2D(latitude: 44.38, longitude: -69.7))
-        rect.add(CLLocationCoordinate2D(latitude: 44.38, longitude: -69.8))
-        rect.add(CLLocationCoordinate2D(latitude: 44.33, longitude: -69.8))
-        rect.add(CLLocationCoordinate2D(latitude: 44.33106, longitude: -69.7795))
+        rect.add(CLLocationCoordinate2D(latitude: 44.33, longitude: -69.77))
+        rect.add(CLLocationCoordinate2D(latitude: 44.44, longitude: -69.77))
+        rect.add(CLLocationCoordinate2D(latitude: 44.44, longitude: -69.9))
+        rect.add(CLLocationCoordinate2D(latitude: 44.33, longitude: -69.9))
+        //rect.add(CLLocationCoordinate2D(latitude: 44.33106, longitude: -69.7795))
         }
         //lat= 43.2081 long = 71.5376
-        if(addlbl.text == statenames[1])
+        if(lname == statenames[1])
         {
             rect.add(CLLocationCoordinate2D(latitude: 43.20, longitude: -71.5))
             rect.add(CLLocationCoordinate2D(latitude: 43.27, longitude: -71.5))
@@ -81,7 +102,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
             rect.add(CLLocationCoordinate2D(latitude: 43.2081, longitude: -71.5376))
         }
         //lat = 42.3601 long = 71.0589
-        if(addlbl.text == statenames[2])
+        if(lname == statenames[2])
         {
             rect.add(CLLocationCoordinate2D(latitude: 42.36, longitude: -71.0))
             rect.add(CLLocationCoordinate2D(latitude: 42.44, longitude: -71.0))
@@ -90,7 +111,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
             rect.add(CLLocationCoordinate2D(latitude: 42.3601, longitude: -71.0589))
         }
         //lat = 41.8240 long=71.4128
-        if(addlbl.text == statenames[3])
+        if(lname == statenames[3])
         {
             rect.add(CLLocationCoordinate2D(latitude: 41.82, longitude: -71.4))
             rect.add(CLLocationCoordinate2D(latitude: 41.88, longitude: -71.4))
@@ -99,7 +120,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
             rect.add(CLLocationCoordinate2D(latitude: 41.8840, longitude: -71.4128))
         }
         //lat = 41.7637 long = 72.6851
-        if(addlbl.text == statenames[4])
+        if(lname == statenames[4])
         {
             rect.add(CLLocationCoordinate2D(latitude: 41.76, longitude: -72.6))
             rect.add(CLLocationCoordinate2D(latitude: 42.02, longitude: -72.6))
@@ -108,11 +129,13 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
             rect.add(CLLocationCoordinate2D(latitude: 41.7637, longitude: -72.6851))
         }
         // Create the polygon, and assign it to the map.
+       
         let polygon = GMSPolygon(path: rect)
         polygon.fillColor = UIColor(red: 0.25, green: 0, blue: 0, alpha: 0.05);
         polygon.strokeColor = .black
         polygon.strokeWidth = 4
         polygon.map = mapView
+        drawPath(startLocation: st1, endLocation: dt1)
     }
     
     
@@ -194,15 +217,17 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
             
         }
     
+    var st1 = CLLocation()
+    var dt1 = CLLocation()
     func drawPath(startLocation: CLLocation, endLocation: CLLocation)
     {
+    
         let origin = "\(startLocation.coordinate.latitude),\(startLocation.coordinate.longitude)"
         let destination = "\(endLocation.coordinate.latitude),\(endLocation.coordinate.longitude)"
-        
-        
+        st1 = startLocation
+        dt1 = endLocation
         let res =  distance(lat1: startLocation.coordinate.latitude, lon1: startLocation.coordinate.longitude, lat2: endLocation.coordinate.latitude, lon2: endLocation.coordinate.longitude, unit: "K")
         distancelbl.text = "Distance: "+String(format:"%.02f", res) + "Km/h"
-
         placesClient.currentPlace(callback: { (placeLikelihoodList, error) -> Void in
             if let error = error {
                 print("Pick Place error: \(error.localizedDescription)")
@@ -214,6 +239,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
                 if let place = place {
                     //self.ref = Database.database().reference()
                     self.addlbl.text = place.name
+                    self.currentplace = place.name
                     //self.ref?.child("UserInfo").childByAutoId().setValue(["Place": place.name ,"Latitude": endLocation.coordinate.latitude , "Longitude": endLocation.coordinate.longitude])
                    
                 }
@@ -414,6 +440,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
                 let coordinates = CLLocationCoordinate2DMake(place.coordinate.latitude, place.coordinate.longitude)
                 let marker = GMSMarker(position: coordinates)
                 self.end = place.name
+                print("Destination:" + place.name)
                 marker.title = place.name
                 marker.map = self.mapView
                 let destt = CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
@@ -546,7 +573,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
         
         let loc = locations[0]
         print("Latitude : \(loc.coordinate.latitude) and Longitude : \(loc.coordinate.latitude)")
-        
+        let res =  distance(lat1: loc.coordinate.latitude, lon1: loc.coordinate.latitude, lat2: dt1.coordinate.latitude, lon2: dt1.coordinate.longitude, unit: "K")
+        distancelbl.text = "Distance: "+String(format:"%.02f", res) + "Km/h"
         
         
         
@@ -569,6 +597,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
                             self.start = placemark.name!
                         }
                         print(placemark.country!)
+                        self.addlbl.text = placemark.name
                         print(placemark.name!)
                         print(placemark.subThoroughfare!)
                         if(placemark.name == self.end)
@@ -650,8 +679,8 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
         {
              lat = 44.3310
              lon = -69.7795
-            addlbl.text = "Augusta, ME"
-            
+             addlbl.text = "Augusta ME"
+            lname = statenames[row]
         }
 
         if (row == 1)
@@ -660,24 +689,28 @@ class ViewController: UIViewController,CLLocationManagerDelegate, UIPickerViewDe
             lon = -71.5376
             print("Concord")
             addlbl.text = "Concord NH"
+            lname = statenames[row]
         }
         if (row == 2)
         {
             lat = 42.3601
             lon = -71.0589
             addlbl.text = "Boston MA"
+            lname = statenames[row]
         }
         if (row == 3)
         {
             lat = 41.8240
             lon = -71.4128
             addlbl.text = "Providence RI"
+            lname = statenames[row]
         }
         if(row == 4)
         {
             lat = 41.7637
             lon = -72.6851
             addlbl.text = "HartFord CT"
+            lname = statenames[row]
         }
         
         let camera = GMSCameraPosition.camera(withLatitude: (lat),longitude: (lon),zoom: zoomLevel)
